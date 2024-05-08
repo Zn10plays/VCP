@@ -34,7 +34,7 @@ class ImageDataset(Dataset):
         if self.transform:
             image = self.transform(image)
 
-        return image, label
+        return image.to('cuda'), torch.tensor(label, dtype=torch.float).to('cuda')
 
 
 training_dataset = ImageDataset('data/train/features.csv', 'data/train/labels.csv', 'data/train/images/')

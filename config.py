@@ -1,4 +1,2 @@
-{
-  "image_size": [382, 256],
-  "num_class": 39
-}
+image_size = (382, 256)
+num_classes = 39
