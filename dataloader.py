@@ -9,7 +9,8 @@ from torchvision import transforms as t
 preprocessor = t.Compose([
     t.Resize((128 * 3, 128 * 2)),
     t.PILToTensor(),
-    t.ConvertImageDtype(torch.float)
+    t.ConvertImageDtype(torch.float),
+    t.Normalize([.5,.5,.5],[.25,.25,.25])
 ])
 
 
