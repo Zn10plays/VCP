@@ -2,3 +2,4 @@ data/*
 .idea
 saves/
 __pycache__
+.ipynb_checkpoints
