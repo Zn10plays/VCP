@@ -1,0 +1,22 @@
+Dataset:
+  classes: ['Fantasy', 'Romance', 'Tragedy', 'Action', 'Adventure', 'Mature',
+            'SchoolLife', 'Sci-fi', 'Adult', 'Drama', 'Supernatural', 'Comedy',
+            'Mystery', 'SliceofLife', 'Smut', 'Horror', 'Psychological', 'Shoujo',
+            'Harem', 'Shounen', 'Yaoi', 'Josei', 'GenderBender', 'Seinen', 'Wuxia',
+            'Martial Arts', 'MartialArts', 'Historical', 'Mecha', 'ShounenAi',
+            'Ecchi', 'Slice of Life', 'Shounen Ai', 'Gender Bender', 'School Life',
+            'Sports', 'Yuri', 'ShoujoAi', 'Xuanhuan']
+
+
+Model:
+  type: 'vit_pytorch.ViT'
+  depth: 6
+  activation: 'sigmoid'
+  dim_size: 512
+  image_size: (384, 128)
+  mlp_dim: 1024
+  patch_size: 32
+
+  training:
+    loss: 'CTE'
+    num_epoch: 100

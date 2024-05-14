@@ -1,12 +1,13 @@
 import torch
 from vit_pytorch import ViT
-from config import num_classes
+import yaml
 
+config = yaml.safe_load(open('constants/v1.yaml'))
 
 vision_model = ViT(
-    image_size=128 * 3,
+    image_size=max(config['model']['image_size']),
     patch_size=32,
-    num_classes=num_classes,
+    num_classes=len(config['model']['classes']),
     dim=512,
     depth=6,
     heads=16,
