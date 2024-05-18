@@ -13,15 +13,23 @@ preprocessor = t.Compose([
     t.Normalize([.5,.5,.5],[.25,.25,.25])
 ])
 
+import yaml
+
+config = yaml.safe_load(open('constants/v1.yaml'))
 
 class ImageDataset(Dataset):
     def __init__(self, maps, labels, image_path='./images/', transform=preprocessor):
+        self.image_path = image_path
+        self.transform = transform
+
         self.maps = pd.read_csv(maps)
         self.labels = pd.read_csv(labels)
         del self.labels['Unnamed: 0']
-        self.image_path = image_path
 
-        self.transform = transform
+        # force order
+        self.labels = self.labels[config['Dataset']['classes']]
+        # remove redacted fields
+        self.labels = self.labels.drop(columns=config['Dataset']['redactions'])
 
     def __len__(self):
         return len(self.labels)

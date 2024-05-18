@@ -3,9 +3,10 @@ Dataset:
             'SchoolLife', 'Sci-fi', 'Adult', 'Drama', 'Supernatural', 'Comedy',
             'Mystery', 'SliceofLife', 'Smut', 'Horror', 'Psychological', 'Shoujo',
             'Harem', 'Shounen', 'Yaoi', 'Josei', 'GenderBender', 'Seinen', 'Wuxia',
-            'Martial Arts', 'MartialArts', 'Historical', 'Mecha', 'ShounenAi',
-            'Ecchi', 'Slice of Life', 'Shounen Ai', 'Gender Bender', 'School Life',
-            'Sports', 'Yuri', 'ShoujoAi', 'Xuanhuan']
+            'MartialArts', 'Historical', 'Mecha', 'ShounenAi', 'Ecchi',
+            'Sports', 'Yuri', 'Xuanhuan']
+
+  redactions: ['Fantasy', 'Romance', 'Yaoi', 'Smut']
 
 
 Model:
@@ -18,5 +19,5 @@ Model:
   patch_size: 32
 
   training:
-    loss: 'CTE'
+    loss: 'BCE'
     num_epoch: 100

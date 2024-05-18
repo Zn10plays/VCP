@@ -31,8 +31,12 @@ def calculate_precession(y_hat: torch.Tensor, y: torch.Tensor, pooling: bool = F
     y_hat = y_hat.cpu()
 
     classes_hat = y_hat.apply_(lambda x: 1 if x > .7 else 0)
-    y_complement = y.apply_(lambda x: 0 if x == 1 else 0)
-    
+    y_complement = y.apply_(lambda x: 0 if x == 1 else 1)
+
     acc = ((classes_hat * y).sum(dim = -1) - (classes_hat * y_complement).sum(dim=-1)) / y.sum(dim=-1)
     
     return torch.mean(acc) if pooling else acc
+
+def _prob_squeeze(x: torch.Tensor):
+    return -0.00034 * torch.pow(x, 2) + .5 if x < .5 else .5 * torch.pow(x, 2) + .5
+
