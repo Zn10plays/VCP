@@ -1,8 +1,9 @@
 import torch
 import numpy as np
 import yaml
-from torchvision import transforms as t
+from torchvision.transforms import v2 as t
 
+# load classes, and remove redactions
 config = yaml.safe_load(open('constants/v1.yaml'))
 classes = np.array([item for item in config['Dataset']['classes'] if item not in config['Dataset']['redactions']])
 
