@@ -4,13 +4,14 @@ from PIL import Image
 import os
 import pandas as pd
 from torch.utils.data import Dataset
-from torchvision import transforms as t
+from torchvision.transforms import v2
 
-preprocessor = t.Compose([
-    t.Resize((128 * 3, 128 * 2)),
-    t.PILToTensor(),
-    t.ConvertImageDtype(torch.float),
-    t.Normalize([.5,.5,.5],[.25,.25,.25])
+preprocessor = v2.Compose([
+    v2.ToImage(),  # Convert to tensor, only needed if you had a PIL image
+    v2.ToDtype(torch.uint8, scale=True), 
+    v2.RandomResizedCrop((128 * 3, 128 * 2)),
+    v2.ConvertImageDtype(torch.float),
+    v2.Normalize([.5,.5,.5],[.25,.25,.25])
 ])
 
 import yaml
