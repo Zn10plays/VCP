@@ -8,10 +8,10 @@ from torchvision.transforms import v2
 
 preprocessor = v2.Compose([
     v2.ToImage(),  # Convert to tensor, only needed if you had a PIL image
-    v2.ToDtype(torch.uint8, scale=True), 
+    v2.ToDtype(torch.uint8),
     v2.RandomResizedCrop((128 * 3, 128 * 2)),
-    v2.ConvertImageDtype(torch.float),
-    v2.Normalize([.5,.5,.5],[.25,.25,.25])
+    v2.ToDtype(torch.float32, scale=True),
+    v2.Normalize([.61862556, .57236481, .57478806],[.31973445, .32038794, .31461327])
 ])
 
 import yaml
@@ -25,7 +25,6 @@ class ImageDataset(Dataset):
 
         self.maps = pd.read_csv(maps)
         self.labels = pd.read_csv(labels)
-        del self.labels['Unnamed: 0']
 
         # force order
         self.labels = self.labels[config['Dataset']['classes']]

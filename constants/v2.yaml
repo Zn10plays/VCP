@@ -1,16 +1,17 @@
 Dataset:
-  classes: ['Fantasy', 'Romance', 'Tragedy', 'Action', 'Adventure', 'Mature',
-            'SchoolLife', 'Sci-fi', 'Adult', 'Drama', 'Supernatural', 'Comedy',
-            'Mystery', 'SliceofLife', 'Smut', 'Horror', 'Psychological', 'Shoujo',
-            'Harem', 'Shounen', 'Yaoi', 'Josei', 'GenderBender', 'Seinen', 'Wuxia',
-            'MartialArts', 'Historical', 'Mecha', 'ShounenAi', 'Ecchi',
-            'Sports', 'Yuri', 'Xuanhuan']
+  classes: ['action','adult','adventure','comedy','drama','ecchi','fantasy','gender bender',
+            'harem','historical','horror','josei','martial arts','mature','mecha','mystery',
+            'psychological','romance','school life','sci-fi','seinen','shoujo','shoujo ai',
+            'shounen','shounen ai','slice of life','smut','sports','supernatural','tragedy',
+            'wuxia','xianxia','xuanhuan','yaoi','yuri']
 
-  redactions: ['Fantasy', 'Romance', 'Yaoi', 'Smut']
+  redactions: [ 'yuri', 'yaoi', 'xianxia', 'xuanhuan', 'sports', 'historical', 'mecha', 'smut', 'mature']
+
+  critalcats: [ 'fantasy', 'romance' ]
 
 
 Model:
-  type: 'vit_pytorch.ViT'
+  type: 'vit_pytorch.SimpleViT'
   depth: 6
   activation: 'sigmoid'
   dim_size: 512
@@ -20,4 +21,3 @@ Model:
 
   training:
     loss: 'BCEWithLogits'
-    num_epoch: 100
