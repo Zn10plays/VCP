@@ -17,7 +17,7 @@ postprocessor = v2.Compose([
     v2.Normalize([.61862556, .57236481, .57478806],[.31973445, .32038794, .31461327])
 ])
 
-config = yaml.safe_load(open('constants/v1.yaml'))
+config = yaml.safe_load(open('constants/v2.yaml'))
 
 
 class ImageDataset(Dataset):
