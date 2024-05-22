@@ -5,6 +5,7 @@ import os
 import pandas as pd
 from torch.utils.data import Dataset
 from torchvision.transforms import v2
+import yaml
 
 preprocessor = v2.Compose([
     v2.ToImage(),  # Convert to tensor, only needed if you had a PIL image
@@ -14,9 +15,8 @@ preprocessor = v2.Compose([
     v2.Normalize([.61862556, .57236481, .57478806],[.31973445, .32038794, .31461327])
 ])
 
-import yaml
-
 config = yaml.safe_load(open('constants/v1.yaml'))
+
 
 class ImageDataset(Dataset):
     def __init__(self, maps, labels, image_path='./images/', transform=preprocessor):
