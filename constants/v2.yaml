@@ -14,16 +14,17 @@ ViT:
   type: 'vit_pytorch.SimpleViT'
   depth: 6
   activation: 'sigmoid'
-  dim_size: 512
+  dim_size: 128
   image_size: (384, 128)
-  mlp_dim: 1024
-  patch_size: 32
+  mlp_dim: 512
+  patch_size: 4
+  heads: 8
 
   training:
     loss: 'BCEWithLogits'
 
 VAE:
-  latent_channel_count: 8
+  latent_channel_count: 4
   compression_factor: 8
   hf_repo: 'stabilityai/stable-diffusion-xl-base-1.0'
   hf_file_name: 'diffusion_pytorch_model.fp16.safetensors'
