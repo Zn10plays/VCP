@@ -10,7 +10,7 @@ Dataset:
   critalcats: [ 'fantasy', 'romance' ]
 
 
-Model:
+ViT:
   type: 'vit_pytorch.SimpleViT'
   depth: 6
   activation: 'sigmoid'
@@ -21,3 +21,10 @@ Model:
 
   training:
     loss: 'BCEWithLogits'
+
+VAE:
+  latent_channel_count: 8
+  compression_factor: 8
+  hf_repo: 'stabilityai/stable-diffusion-xl-base-1.0'
+  hf_file_name: 'diffusion_pytorch_model.fp16.safetensors'
+  hf_file_subdir: 'vae'

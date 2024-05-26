@@ -7,21 +7,32 @@ from torch.utils.data import Dataset
 from torchvision.transforms import v2
 import yaml
 
-preprocessor = v2.Compose([
-    v2.ToImage(),  # Convert to tensor, only needed if you had a PIL image
-    v2.ToDtype(torch.uint8),
-])
-
-postprocessor = v2.Compose([
-    v2.ToDtype(torch.float32),
-    v2.Normalize([.61862556, .57236481, .57478806],[.31973445, .32038794, .31461327])
-])
-
 config = yaml.safe_load(open('constants/v2.yaml'))
+
+conditional_preprocesses = v2.Compose([
+    v2.RandomChoice([v2.RandomRotation([90, -90, 180])], [1/3, 1/3, 1/3]),
+    v2.RandomChoice([v2.RandomResizedCrop(config['ViT']['image_size']), v2.Resize(config['ViT']['image_size'])],  [.9, .1]),
+    v2.RandomHorizontalFlip(.3),
+    v2.RandomVerticalFlip(.3),
+])
+
+
+def preprocessor(images, random_crop=True):
+    images = v2.functional.to_image(images)
+    images = v2.functional.to_dtype(images, torch.uint8)
+    if random_crop and torch.rand(1) > .5:
+        images = conditional_preprocesses(images)
+
+    images = v2.functional.to_dtype(images, torch.float32)
+
+    images = 2 * images - 1
+
+    return images
+
 
 
 class ImageDataset(Dataset):
-    def __init__(self, maps, labels, image_path='./images/', transform: bool = True, augmentation: bool = False):
+    def __init__(self, maps, labels, image_path='./images/', transform=preprocessor, augmentation: bool = False):
         self.image_path = image_path
         self.transform = transform
 
@@ -47,16 +58,15 @@ class ImageDataset(Dataset):
         if self.transform:
             image = preprocessor(image)
 
-        if self.augmentation:
-            image = v2.functional.resized_crop(image, config['Model']['image_size'])
-
-        if self.transform:
-            image = postprocessor(image)
-
-
         return image.to('cuda'), torch.tensor(label, dtype=torch.float).to('cuda')
 
 
-training_dataset = ImageDataset('data/train/features.csv', 'data/train/labels.csv', 'data/train/images/', augmentation=True)
+training_dataset = ImageDataset('data/train/features.csv',
+                                'data/train/labels.csv',
+                                'data/train/images/',
+                                augmentation=True)
 
-testing_dataset = ImageDataset('data/test/features.csv', 'data/test/labels.csv', 'data/test/images/', transform=True, augmentation=False)
+testing_dataset = ImageDataset('data/test/features.csv',
+                               'data/test/labels.csv',
+                               'data/test/images/',
+                               augmentation=False)
