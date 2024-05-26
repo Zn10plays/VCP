@@ -5,6 +5,7 @@ Dataset:
             'shounen','shounen ai','slice of life','smut','sports','supernatural','tragedy',
             'wuxia','xianxia','xuanhuan','yaoi','yuri']
 
+#  Either due to class unbalance or professional reasons
   redactions: [ 'yuri', 'yaoi', 'xianxia', 'xuanhuan', 'sports', 'historical', 'mecha', 'smut', 'mature']
 
   critalcats: [ 'fantasy', 'romance' ]
@@ -24,8 +25,12 @@ ViT:
     loss: 'BCEWithLogits'
 
 VAE:
+  type: 'diffusers.AutoencoderKL'
   latent_channel_count: 4
   compression_factor: 8
   hf_repo: 'stabilityai/stable-diffusion-xl-base-1.0'
   hf_file_name: 'diffusion_pytorch_model.fp16.safetensors'
   hf_file_subdir: 'vae'
+
+  training:
+    loss: 'KL_Divergence'
