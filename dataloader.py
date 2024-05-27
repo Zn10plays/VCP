@@ -10,11 +10,11 @@ import yaml
 config = yaml.full_load(open('constants/v2.yaml'))
 
 conditional_preprocesses = v2.Compose([
-    v2.RandomApply([v2.RandomRotation([-180, 180])], .2),
     v2.RandomChoice([
         v2.RandomResizedCrop(size=config['ViT']['image_size']),
         v2.Resize(size=config['ViT']['image_size'])
     ], [.9, .1]),
+    v2.RandomApply([v2.RandomRotation([-180, 180])], .2),
     v2.RandomHorizontalFlip(.3),
     v2.RandomVerticalFlip(.3),
 ])
@@ -30,8 +30,7 @@ def preprocessor(images, random_crop=True, device='cuda'):
 
     images = 2 * images - 1
 
-    return images.to('cuda')
-
+    return images.to(device)
 
 class ImageDataset(Dataset):
     def __init__(self, maps, labels, image_path='./images/', transform=preprocessor, augmentation: bool = False):
@@ -60,8 +59,7 @@ class ImageDataset(Dataset):
         if self.transform:
             image = preprocessor(image)
 
-        return image.to('cuda')
-#     , torch.tensor(label, dtype=torch.float).to('cuda')
+        return image.to('cuda'), torch.tensor(label, dtype=torch.float).to('cuda')
 
 
 training_dataset = ImageDataset('data/train/features.csv',
