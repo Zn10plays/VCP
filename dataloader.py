@@ -7,28 +7,30 @@ from torch.utils.data import Dataset
 from torchvision.transforms import v2
 import yaml
 
-config = yaml.safe_load(open('constants/v2.yaml'))
+config = yaml.full_load(open('constants/v2.yaml'))
 
 conditional_preprocesses = v2.Compose([
-    v2.RandomChoice([v2.RandomRotation([90, -90, 180])], [1/3, 1/3, 1/3]),
-    v2.RandomChoice([v2.RandomResizedCrop(config['ViT']['image_size']), v2.Resize(config['ViT']['image_size'])],  [.9, .1]),
+    v2.RandomApply([v2.RandomRotation([-180, 180])], .2),
+    v2.RandomChoice([
+        v2.RandomResizedCrop(size=config['ViT']['image_size']),
+        v2.Resize(size=config['ViT']['image_size'])
+    ], [.9, .1]),
     v2.RandomHorizontalFlip(.3),
     v2.RandomVerticalFlip(.3),
 ])
 
 
-def preprocessor(images, random_crop=True):
+def preprocessor(images, random_crop=True, device='cuda'):
     images = v2.functional.to_image(images)
     images = v2.functional.to_dtype(images, torch.uint8)
-    if random_crop and torch.rand(1) > .5:
+    if random_crop:
         images = conditional_preprocesses(images)
 
-    images = v2.functional.to_dtype(images, torch.float32)
+    images = v2.functional.to_dtype(images, torch.float32, scale=True)
 
     images = 2 * images - 1
 
-    return images
-
+    return images.to('cuda')
 
 
 class ImageDataset(Dataset):
@@ -58,7 +60,8 @@ class ImageDataset(Dataset):
         if self.transform:
             image = preprocessor(image)
 
-        return image.to('cuda'), torch.tensor(label, dtype=torch.float).to('cuda')
+        return image.to('cuda')
+#     , torch.tensor(label, dtype=torch.float).to('cuda')
 
 
 training_dataset = ImageDataset('data/train/features.csv',

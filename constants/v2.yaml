@@ -16,7 +16,7 @@ ViT:
   depth: 6
   activation: 'sigmoid'
   dim_size: 128
-  image_size: (384, 128)
+  image_size: !!python/tuple [384, 256]
   mlp_dim: 512
   patch_size: 4
   heads: 8
@@ -28,9 +28,7 @@ VAE:
   type: 'diffusers.AutoencoderKL'
   latent_channel_count: 4
   compression_factor: 8
-  hf_repo: 'stabilityai/stable-diffusion-xl-base-1.0'
-  hf_file_name: 'diffusion_pytorch_model.fp16.safetensors'
-  hf_file_subdir: 'vae'
+  hf_model_url: 'https://huggingface.co/stabilityai/sd-vae-ft-mse-original/blob/main/vae-ft-mse-840000-ema-pruned.safetensors'
 
   training:
     loss: 'KL_Divergence'

@@ -1,35 +1,36 @@
 import torch
-from ViT import SimpleViT
-from VAE import get_vae
+from .ViT import SimpleViT
+from .VAE import get_vae
 import warnings
 import PIL
 
 import yaml
 
-config = yaml.safe_load(open('constants/v2.yaml'))
+config = yaml.full_load(open('constants/v2.yaml'))
 
 
-def get_model(ver: int = 2):
+def get_model(ver: int = 2, device: str = 'cuda'):
     if ver == 1:
-        model = None
+        vit = None
         # implement v1 and return
         warnings.warn('not implemented cus it sucked')
+        return vit
     elif ver == 2:
-        model = SimpleViT(
-            image_size=(int(config['Model']['image_size'][0] / 8), int(config['Model']['image_size'][1] / 8)),
-            patch_size=config['Model']['patch_size'],
-            num_classes=len(config['Model']['classes']) - len(config['Model']['redactions']),
-            dim=config['Model']['dim_size'],
-            depth=config['Model']['depth'],
-            heads=config['Model']['heads'],
-            mlp_dim=config['Model']['mlp_dim'],
+        vit = SimpleViT(
+            image_size=(int(config['ViT']['image_size'][0] / 8), int(config['ViT']['image_size'][1] / 8)),
+            patch_size=config['ViT']['patch_size'],
+            num_classes=len(config['Dataset']['classes']) - len(config['Dataset']['redactions']),
+            dim=config['ViT']['dim_size'],
+            depth=config['ViT']['depth'],
+            heads=config['ViT']['heads'],
+            mlp_dim=config['ViT']['mlp_dim'],
         )
-
-    return model
+        return vit.to(device)
 
 
 model = get_model()
 vae = get_vae()
+
 
 @torch.amp.autocast('cuda')
 def pipe(images, return_logits=True):
