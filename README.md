@@ -33,5 +33,6 @@ The dataset will be publicly available, and readers are encouraged to give it th
 
 ## Architecture
 The architecture for this experiment comprises two district branches, a **Variational Autoencoder** (VAE),
-and a **Vision Transformer** (ViT). Images are often of high dimensionality and therefore require a large
-amount of compute to process 
+and a **Vision Transformer** (ViT). Images are often of high dimensionality are computationally expensive to 
+process. In the recent decade there have been various proposals to reduce dimensionality ranging from resizing
+the image to dividing the images into patches and processing the patches individually. 
