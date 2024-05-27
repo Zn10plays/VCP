@@ -21,16 +21,18 @@ conditional_preprocesses = v2.Compose([
 
 
 def preprocessor(images, random_crop=True, device='cuda'):
-    images = v2.functional.to_image(images)
+    images = v2.functional.to_image(images).to(device)
     images = v2.functional.to_dtype(images, torch.uint8)
     if random_crop:
         images = conditional_preprocesses(images)
+    else:
+        images = v2.functional.resize(images, config['ViT']['image_size'])
 
     images = v2.functional.to_dtype(images, torch.float32, scale=True)
 
     images = 2 * images - 1
 
-    return images.to(device)
+    return images
 
 class ImageDataset(Dataset):
     def __init__(self, maps, labels, image_path='./images/', transform=preprocessor, augmentation: bool = False):
@@ -57,7 +59,7 @@ class ImageDataset(Dataset):
         label = self.labels.iloc[idx].values
 
         if self.transform:
-            image = preprocessor(image)
+            image = preprocessor(image, random_crop=self.augmentation)
 
         return image.to('cuda'), torch.tensor(label, dtype=torch.float).to('cuda')
 
