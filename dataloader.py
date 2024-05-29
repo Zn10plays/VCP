@@ -41,6 +41,7 @@ class ImageDataset(Dataset):
 
         self.maps = pd.read_csv(maps)
         self.labels = pd.read_csv(labels)
+        # del self.labels['']
 
         self.augmentation = augmentation
 

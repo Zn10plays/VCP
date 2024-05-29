@@ -5,6 +5,8 @@ Dataset:
             'shounen','shounen ai','slice of life','smut','sports','supernatural','tragedy',
             'wuxia','xianxia','xuanhuan','yaoi','yuri']
 
+  class_weights: !!python/tuple [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
 #  Either due to class unbalance or professional reasons
   redactions: [ 'yuri', 'yaoi', 'xianxia', 'xuanhuan', 'sports', 'historical', 'mecha', 'smut', 'mature']
 

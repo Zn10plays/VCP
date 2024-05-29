@@ -1,10 +1,16 @@
 import torch
+from torchvision.transforms import v2
 import numpy as np
 import yaml
 
 # load classes, and remove redactions
-config = yaml.safe_load(open('constants/v1.yaml'))
+config = yaml.full_load(open('constants/v2.yaml'))
 classes = np.array([item for item in config['Dataset']['classes'] if item not in config['Dataset']['redactions']])
+
+
+def to_pil(images: torch.Tensor):
+    images = (images + 1) / 2
+    return v2.functional.to_pil_image(images)
 
 
 # given a torch array, return the index of the top 5 logits

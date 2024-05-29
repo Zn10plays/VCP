@@ -2,8 +2,7 @@ import torch
 from .ViT import SimpleViT
 from .VAE import get_vae
 import warnings
-import PIL
-
+from dataloader import preprocessor
 import yaml
 
 config = yaml.full_load(open('constants/v2.yaml'))
@@ -33,10 +32,13 @@ vae = get_vae()
 
 
 @torch.amp.autocast('cuda')
-def pipe(images, return_logits=True):
+def pipe(images, return_logits=False):
+
+    images = preprocessor(images, random_crop=False)
+
     with torch.no_grad():
         prior = vae.encode(images)
         samples = prior.latent_dist.sample()
 
     logits = model(samples)
-    return logits if return_logits else logits.softmax(-1)
+    return logits if return_logits else logits.sigmoid()
