@@ -1,5 +1,6 @@
 pandas
 vit_pytorch
 einops
+diffusers[torch]
 transformers[torch]
 huggingface_hub
