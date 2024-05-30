@@ -1,3 +1,4 @@
+pandas
 vit_pytorch
 einops
 transformers[torch]
