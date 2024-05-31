@@ -26,7 +26,7 @@ ViT:
     loss: 'BCEWithLogits'
   #  according to what is recommended https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html#torch.nn.BCEWithLogitsLoss (dataset_total/actual presence)
     class_weights: !!python/tuple [ 12.69262295,  19.60126582,   8.02331606,  11.64285714,
-                                      13.52401747,   2.76764969,   0.7034632 ,   3.04223969,
+                                      13.52401747,   2.76764969,   6.7034632 ,   3.04223969,
                                       75.53658537, 193.5625    ,   2.6335034 ,   4.23666211,
                                       83.7027027 ,   5.60036166,   1.40581026,  34.41111111,
                                       38.7125    ,   7.9005102 ,  32.26041667,   1.17577828,
