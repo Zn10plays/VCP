@@ -4,7 +4,7 @@ Vision classification para la clase de matamatica
 
 # Judging a book by its cover
 The age-old saying "don't judge a book by its cover" is often told by teachers to 
-their uninterested students who dislike reading. However, seldom is their actually 
+their uninterested students who dislike reading. However, seldom is their advice actually 
 applicable in the realworld. Publishers dedicate a lot of resources for to make their 
 works visually appealing and customers rightfully jude those covers to make an educated
 estimate regarding the book's genre, story, them, and other literary aspects. 
