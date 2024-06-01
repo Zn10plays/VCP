@@ -5,7 +5,7 @@ import yaml
 
 # load classes, and remove redactions
 config = yaml.full_load(open('constants/v2.yaml'))
-classes = np.array([item for item in config['Dataset']['classes'] if item not in config['Dataset']['redactions']])
+classes = np.array(config['Dataset']['filtered_cats'])
 
 
 def to_pil(images: torch.Tensor):

@@ -32,7 +32,7 @@ ViT:
   #  according to what is recommended https://pytorch.org/docs/stable/generated/torch.nn.BCEWithLogitsLoss.html#torch.nn.BCEWithLogitsLoss (dataset_total/actual presence)
     class_weights: !!python/tuple [8.31504065, 7.91295938, 7.31842576, 7.20246479, 7.18980668,
       6.65203252, 5.43293493, 4.0265748 , 3.02812731, 2.82527624,
-      2.76045884, 2.68086501, 1.42147325, .7]
+      2.76045884, 2.68086501, 1.42147325, .4]
 
 
 VAE:
