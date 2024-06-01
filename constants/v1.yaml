@@ -10,7 +10,7 @@ Dataset:
 
 
 Model:
-  type: 'vit_pytorch.ViT'
+  type: 'vit_pytorch.Simple_ViT'
   depth: 6
   activation: 'sigmoid'
   dim_size: 512

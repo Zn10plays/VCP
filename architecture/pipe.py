@@ -10,7 +10,15 @@ config = yaml.full_load(open('constants/v2.yaml'))
 
 def get_model(ver: int = 2, device: str = 'cuda'):
     if ver == 1:
-        vit = None
+        vit = SimpleViT(
+               image_size=(config['ViT']['image_size'][0], config['ViT']['image_size'][1]),
+               patch_size=32,
+               num_classes=14,
+               dim=512,
+               depth=6,
+               heads=16,
+               mlp_dim=1024,
+            )
         # implement v1 and return
         warnings.warn('not implemented cus it sucked')
         return vit
