@@ -36,7 +36,7 @@ def get_model(ver: int = 2, device: str = 'cuda'):
 
 
 model = get_model()
-vae = get_vae()
+# vae = get_vae()
 
 
 @torch.amp.autocast('cuda')
@@ -44,9 +44,9 @@ def pipe(images, return_logits=False):
 
     images = preprocessor(images, random_crop=False)
 
-    with torch.no_grad():
-        prior = vae.encode(images)
-        samples = prior.latent_dist.sample()
+    # with torch.no_grad():
+        # prior = vae.encode(images)
+        # samples = prior.latent_dist.sample()
 
-    logits = model(samples)
+    logits = model(images)
     return logits if return_logits else logits.sigmoid()
