@@ -21,11 +21,11 @@ ViT:
   type: 'vit_pytorch.SimpleViT'
   depth: 6
   activation: 'sigmoid'
-  dim_size: 128
+  dim_size: 1024
   image_size: !!python/tuple [384, 256]
-  mlp_dim: 512
-  patch_size: 4
-  heads: 8
+  mlp_dim: 2048
+  patch_size: 32
+  heads: 16
 
   training:
     loss: 'BCEWithLogits'
