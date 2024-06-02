@@ -38,9 +38,10 @@ def preprocessor(images, random_crop=True, vae_prep=False):
 
 
 class ImageDataset(Dataset):
-    def __init__(self, maps, labels, image_path='./images/', transform=preprocessor, augmentation: bool = False):
+    def __init__(self, maps, labels, image_path='./images/', transform=preprocessor, augmentation: bool = False, return_idx = False):
         self.image_path = image_path
         self.transform = transform
+        self.return_idx = return_idx
 
         self.maps = pd.read_csv(maps)
         self.labels = pd.read_csv(labels)
@@ -68,6 +69,9 @@ class ImageDataset(Dataset):
         if self.transform:
             image = preprocessor(image, random_crop=self.augmentation)
 
+        if self.return_idx:
+            return image, torch.tensor(label, dtype=torch.float), idx
+
         return image, torch.tensor(label, dtype=torch.float)
 
 
@@ -79,4 +83,5 @@ training_dataset = ImageDataset('data/train/features.csv',
 testing_dataset = ImageDataset('data/test/features.csv',
                                'data/test/labels.csv',
                                'data/test/images/',
+                               return_idx=True,
                                augmentation=False)

@@ -1,3 +1,5 @@
+# Code referenced form https://github.com/lucidrains/vit-pytorch SimpleVit
+
 import torch
 from torch import nn
 
