@@ -17,6 +17,7 @@ def get_model(device: str = 'cuda'):
         mlp_dim=config['ViT']['mlp_dim'],
     ).to(device)
 
+
 @torch.amp.autocast('cuda')
 def pipe(images, model, return_logits=False):
 
