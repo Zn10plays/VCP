@@ -14,8 +14,8 @@ Dataset:
 
   filtered_cats: ['smut', 'supernatural', 'mature', 'school life', 'shounen', 'adult',
                   'slice of life', 'harem', 'adventure', 'action', 'drama', 'comedy',
-                  'romance', 'fantasy']
-
+                  'enmity', 'realism']
+#  last two are (1 - romance), (1 - fantasy)
 
 ViT:
   type: 'vit_pytorch.SimpleViT'

@@ -44,6 +44,12 @@ class ImageDataset(Dataset):
         self.maps = pd.read_csv(maps)
         self.labels = pd.read_csv(labels)
 
+        self.labels['realism'] = self.labels['fantasy'].map(lambda x: 1 - x)
+        del self.labels['fantasy']
+
+        self.labels['enmity'] = self.labels['romance'].map(lambda x: 1 - x)
+        del self.labels['enmity']
+
         self.augmentation = augmentation
 
         # force order and remove redactions

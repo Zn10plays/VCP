@@ -36,7 +36,7 @@ def calculate_precession(y_hat: torch.Tensor, y: torch.Tensor, pooling=False, cu
     classes_hat = y_hat.clone().apply_(lambda x: 1 if x > cutoff else 0)
     y_complement = y.clone().apply_(lambda x: 0 if x == 1 else 1)
 
-    acc = (((classes_hat * y).sum(dim=-1) - (y_complement * classes_hat).sum(dim=-1))) / torch.sum(y, dim=-1)
+    acc = ((classes_hat * y).sum(dim=-1) - (y_complement * classes_hat).sum(dim=-1)) / torch.sum(y, dim=-1)
 
     return torch.mean(acc) if pooling else acc
 
