@@ -20,6 +20,7 @@ conditional_preprocesses = v2.Compose([
 ])
 
 
+@torch.no_grad()
 def preprocessor(images, random_crop=True, vae_prep=False):
     images = v2.functional.to_image(images)
     images = v2.functional.to_dtype(images, torch.uint8)
@@ -33,8 +34,8 @@ def preprocessor(images, random_crop=True, vae_prep=False):
     if vae_prep:
         images = 2 * images - 1
 
-
     return images
+
 
 class ImageDataset(Dataset):
     def __init__(self, maps, labels, image_path='./images/', transform=preprocessor, augmentation: bool = False):

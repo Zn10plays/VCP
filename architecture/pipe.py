@@ -8,9 +8,9 @@ config = yaml.full_load(open('constants/v2.yaml'))
 
 def get_model(device: str = 'cuda'):
     return SimpleViT(
-        image_size=(int(config['ViT']['image_size'][0] / 8), int(config['ViT']['image_size'][1] / 8)),
+        image_size=(config['ViT']['image_size'][0], config['ViT']['image_size']),
         patch_size=config['ViT']['patch_size'],
-        num_classes=len(config['Dataset']['classes']) - len(config['Dataset']['redactions']),
+        num_classes=len(config['Dataset']['filtered_cats']),
         dim=config['ViT']['dim_size'],
         depth=config['ViT']['depth'],
         heads=config['ViT']['heads'],
