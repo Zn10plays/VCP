@@ -49,7 +49,7 @@ class ImageDataset(Dataset):
         del self.labels['fantasy']
 
         self.labels['enmity'] = self.labels['romance'].map(lambda x: 1 - x)
-        del self.labels['enmity']
+        del self.labels['romance']
 
         self.augmentation = augmentation
 
