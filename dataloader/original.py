@@ -41,7 +41,7 @@ class ImageDataset(Dataset):
         self.return_idx = return_idx
 
         self.maps = pd.read_csv(maps)
-        self.maps['img_paths'] = self.maps['img_paths'].map(lambda elm: elm.replace('dataset', ''))
+        self.maps['img_paths'] = self.maps['img_paths'].map(lambda elm: elm.replace('dataset/', ''))
         self.labels = pd.read_csv(labels)
 
         self.augmentation = augmentation
@@ -67,13 +67,13 @@ class ImageDataset(Dataset):
         return image, torch.tensor(label, dtype=torch.float)
 
 
-training_dataset = ImageDataset('LNCovers/train/features.csv',
-                                'LNCovers/train/labels.csv',
-                                'LNCovers/train/images/',
+training_dataset = ImageDataset('GReads/train/features.csv',
+                                'GReads/train/labels.csv',
+                                'GReads/train/images/',
                                 augmentation=True)
 
-testing_dataset = ImageDataset('LNCovers/test/features.csv',
-                               'LNCovers/test/labels.csv',
-                               'LNCovers/test/images/',
+testing_dataset = ImageDataset('GReads/test/features.csv',
+                               'GReads/test/labels.csv',
+                               'GReads/test/images/',
                                return_idx=True,
                                augmentation=False)

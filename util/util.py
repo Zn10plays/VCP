@@ -1,5 +1,4 @@
 import torch
-from torchvision.transforms import v2
 import numpy as np
 import yaml
 

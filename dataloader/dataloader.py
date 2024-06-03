@@ -7,7 +7,7 @@ from torch.utils.data import Dataset
 from torchvision.transforms import v2
 import yaml
 
-config = yaml.full_load(open('../constants/v2.yaml'))
+config = yaml.full_load(open('constants/v2.yaml'))
 
 conditional_preprocesses = v2.Compose([
     v2.RandomChoice([
