@@ -1,6 +1,8 @@
-data/*
+LNCovers/*
 .idea
 saves/
 __pycache__
 .ipynb_checkpoints
 models/*
+LNCovers
+GReads
