@@ -1,0 +1,24 @@
+Dataset: 
+  genre: ['Art-Photography', 'Biography', 'Business-Finance-Law',
+       'Childrens-Books', 'Computing', 'Crafts-Hobbies', 'Crime-Thriller',
+       'Dictionaries-Languages', 'Entertainment', 'Food-Drink',
+       'Graphic-Novels-Anime-Manga', 'Health', 'History-Archaeology',
+       'Home-Garden', 'Humour', 'Medical', 'Mind-Body-Spirit',
+       'Natural-History', 'Personal-Development', 'Poetry-Drama', 'Reference',
+       'Religion', 'Romance', 'Science-Fiction-Fantasy-Horror',
+       'Science-Geography', 'Society-Social-Sciences', 'Sport', 'Stationery',
+       'Teaching-Resources-Education', 'Technology-Engineering',
+       'Teen-Young-Adult', 'Transport', 'Travel-Holiday-Guides']
+  
+ViT:
+  type: 'vit_pytorch.SimpleViT'
+  depth: 6
+  activation: 'softmax'
+  dim_size: 1024
+  image_size: !!python/tuple [192, 128]
+  mlp_dim: 2048
+  patch_size: 16
+  heads: 16
+
+  training:
+    loss: 'CrossEntoryLoss'
