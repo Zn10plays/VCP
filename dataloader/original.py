@@ -67,13 +67,13 @@ class ImageDataset(Dataset):
         return image, torch.tensor(label, dtype=torch.float)
 
 
-training_dataset = ImageDataset('data/train/features.csv',
-                                'data/train/labels.csv',
-                                'data/train/images/',
+training_dataset = ImageDataset('LNCovers/train/features.csv',
+                                'LNCovers/train/labels.csv',
+                                'LNCovers/train/images/',
                                 augmentation=True)
 
-testing_dataset = ImageDataset('data/test/features.csv',
-                               'data/test/labels.csv',
-                               'data/test/images/',
+testing_dataset = ImageDataset('LNCovers/test/features.csv',
+                               'LNCovers/test/labels.csv',
+                               'LNCovers/test/images/',
                                return_idx=True,
                                augmentation=False)

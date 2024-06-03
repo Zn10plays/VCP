@@ -3,30 +3,29 @@ from torchvision.transforms import v2
 import numpy as np
 import yaml
 
-# load classes, and remove redactions
-config = yaml.full_load(open('constants/v2.yaml'))
-classes = np.array(config['Dataset']['filtered_cats'])
 
+class LabelParser:
+    def __init__(self, ver='original'):
+        self.ver = ver
 
-def to_pil(images: torch.Tensor):
-    images = (images + 1) / 2
-    return v2.functional.to_pil_image(images)
+        if ver == 'original':
+            self.config = yaml.full_load(open('constants/original.yaml'))
+            self.classes = np.array(self.config['Dataset']['genre'])
 
+        if ver == 'v2':
+            self.config = yaml.full_load(open('constants/v2.yaml'))
+            self.classes = np.array(self.config['Dataset']['filtered_cats'])
 
-# given a torch array, return the index of the top 5 logits
-def pick_top(x: torch.Tensor, count=1, sorted: bool = True, prettify: bool = False):
-    return x.topk(k=count, sorted=sorted) if not prettify else prettify_classes(x.topk(k=count, sorted=sorted))
+    def pick_top(self, x: torch.Tensor, count=1, sorted: bool = True, prettify: bool = False):
+        return x.topk(k=count, sorted=sorted) if not prettify else self.prettify_classes(x.topk(k=count, sorted=sorted))
 
+    # return the parsed input
+    def prettify_classes(self, x):
+        return self.classes[x.indices.to('cpu')].squeeze().tolist(), x.values.to('cpu').squeeze().tolist()
 
-# return the parsed input
-def prettify_classes(x):
-    return classes[x.indices.to('cpu')].squeeze().tolist(), x.values.to('cpu').squeeze().tolist()
-
-
-def to_classes(x: torch.Tensor):
-    count = int(x.sum())
-    return prettify_classes(pick_top(x, count=count))
-
+    def to_classes(self, x: torch.Tensor):
+        count = int(x.sum())
+        return self.prettify_classes(self.pick_top(x, count=count))
 
 @torch.no_grad()
 def calculate_precession(y_hat: torch.Tensor, y: torch.Tensor, pooling=False, cutoff=.35):
