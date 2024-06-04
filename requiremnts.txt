@@ -2,3 +2,5 @@ torch
 numpy
 pandas
 einops
+lightning
+scikit-learn

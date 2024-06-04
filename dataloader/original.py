@@ -14,7 +14,7 @@ conditional_preprocesses = v2.Compose([
         v2.RandomResizedCrop(size=config['ViT']['image_size']),
         v2.Resize(size=config['ViT']['image_size'])
     ], [.9, .1]),
-    v2.RandomApply([v2.RandomRotation([-90, 90])], .2),
+    v2.RandomApply([v2.RandomRotation(45)], .2),
     v2.RandomHorizontalFlip(.3),
     v2.RandomVerticalFlip(.3),
 ])

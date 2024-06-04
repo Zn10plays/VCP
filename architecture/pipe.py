@@ -1,14 +1,15 @@
 import torch
 from .ViT import SimpleViT
 from dataloader.dataloader import preprocessor
+from .LitViT import LitViT
 import yaml
 
 
-def get_model(device: str = 'cuda', type='original'):
-    if type == 'original':
+def get_model(ver='original'):
+    if ver == 'original':
         config = yaml.full_load(open('constants/original.yaml'))
 
-        return SimpleViT(
+        model = SimpleViT(
             image_size=(config['ViT']['image_size'][0], config['ViT']['image_size'][1]),
             patch_size=config['ViT']['patch_size'],
             num_classes=len(config['Dataset']['genre']),
@@ -16,10 +17,12 @@ def get_model(device: str = 'cuda', type='original'):
             depth=config['ViT']['depth'],
             heads=config['ViT']['heads'],
             mlp_dim=config['ViT']['mlp_dim'],
-        ).to(device)
+        )
+
+        return LitViT(model)
     else:
         config = yaml.full_load(open('constants/v2.yaml'))
-        return SimpleViT(
+        model = SimpleViT(
             image_size=(config['ViT']['image_size'][0], config['ViT']['image_size'][1]),
             patch_size=config['ViT']['patch_size'],
             num_classes=len(config['Dataset']['filtered_cats']),
@@ -27,7 +30,10 @@ def get_model(device: str = 'cuda', type='original'):
             depth=config['ViT']['depth'],
             heads=config['ViT']['heads'],
             mlp_dim=config['ViT']['mlp_dim'],
-        ).to(device)
+        )
+
+        return LitViT(model)
+
 
 
 @torch.amp.autocast('cuda')
