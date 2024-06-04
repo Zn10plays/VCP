@@ -35,7 +35,8 @@ def preprocessor(images, random_crop=True):
 
 
 class ImageDataset(Dataset):
-    def __init__(self, maps, labels, image_path='./images/', transform=preprocessor, augmentation: bool = False, return_idx = False):
+    def __init__(self, maps, labels, image_path='./images/', transform=preprocessor, augmentation: bool = False,
+                 return_idx=False):
         self.image_path = image_path
         self.transform = transform
         self.return_idx = return_idx
@@ -67,13 +68,16 @@ class ImageDataset(Dataset):
         return image, torch.tensor(label, dtype=torch.float)
 
 
-training_dataset = ImageDataset('GReads/train/features.csv',
-                                'GReads/train/labels.csv',
-                                'GReads/train/images/',
-                                augmentation=True)
-
-testing_dataset = ImageDataset('GReads/test/features.csv',
-                               'GReads/test/labels.csv',
-                               'GReads/test/images/',
-                               return_idx=True,
-                               augmentation=False)
+def get_dataset(type='train', augmentation: bool = False, return_idx: bool = False):
+    if type == 'train':
+        return ImageDataset('GReads/train/features.csv',
+                            'GReads/train/labels.csv',
+                            'GReads/train/images/',
+                            augmentation=augmentation,
+                            return_idx=return_idx)
+    else:
+        return ImageDataset('GReads/test/features.csv',
+                            'GReads/test/labels.csv',
+                            'GReads/test/images/',
+                            return_idx=return_idx,
+                            augmentation=augmentation)
