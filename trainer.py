@@ -12,12 +12,12 @@ if __name__ == '__main__':
     training_data = DataLoader(get_dataset('train', augmentation=True),
                                batch_size=32,
                                shuffle=True,
-                               num_workers=32,
+                               num_workers=16,
                                persistent_workers=True)
 
     testing_data = DataLoader(get_dataset('test', augmentation=True),
                               batch_size=32,
-                              num_workers=32,
+                              num_workers=16,
                               persistent_workers=True)
 
     model = pipe.get_model()
