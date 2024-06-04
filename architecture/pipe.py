@@ -1,6 +1,6 @@
 import torch
 from .ViT import SimpleViT
-from dataloader.dataloader import preprocessor
+from dataloader.original import preprocessor
 from .LitViT import LitViT
 import yaml
 
