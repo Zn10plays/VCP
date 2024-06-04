@@ -49,7 +49,7 @@ class LitViT(L.LightningModule):
         self.log('train_loss', loss, on_epoch=True)
 
         accuracy = calc_accuracy(y_hat, y)
-        self.log('accuracy', accuracy, on_epoch=True)
+        self.log('accuracy', accuracy, on_step=False, on_epoch=True)
 
         return loss
 
@@ -62,5 +62,5 @@ class LitViT(L.LightningModule):
         y_hat = self.vit(x)
 
         accuracy = calc_accuracy(y_hat, y)
-        self.log('val_accuracy', accuracy, on_epoch=True)
+        self.log('val_accuracy', accuracy, on_step=False, on_epoch=True)
         return accuracy
