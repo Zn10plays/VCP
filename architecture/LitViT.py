@@ -43,7 +43,7 @@ class LitViT(L.LightningModule):
 
     def training_step(self, batch, batch_idx):
         x, y = batch
-        y_hat = self.vit(x)
+        y_hat = self.forward(x)
 
         loss = F.cross_entropy(y_hat, y)
         self.log('train_loss', loss, on_epoch=True)
@@ -64,3 +64,6 @@ class LitViT(L.LightningModule):
         accuracy = calc_accuracy(y_hat, y)
         self.log('val_accuracy', accuracy, on_step=False, on_epoch=True)
         return accuracy
+
+    def forward(self, x):
+        return self.vit(x)
